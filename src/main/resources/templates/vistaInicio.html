@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/xhtml" >
+    <head th:replace= "/fragment/head :: head" > </head>
+    <body>
+        
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GuidoTicias</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/noticia/panelAdmin}" sec:authorize ="hasRole('ADMIN')">Panel de Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/noticia/inicio}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="/logout">cerrar sesion</a>
+        </li>
+          
+          <li class="nav-item">
+          <a class="nav-link" th:href="@{/modificarUsuario}">modificar usuario</a>
+        </li>
+
+          
+   <!--     <li class="nav-item">
+         <p class="nav-link"  th:if="${session.usuarioSesion != null}"  th:text=" 'bienvenido/a '+  ${session.usuarioSesion.nombre} "></p> 
+        </li>  
+         
+          <a class="navbar-brand" href="#">
+      <img  th:src="@{/imagen/perfil/__${session.usuarioSesion.id}__}" alt="Logo" width="40" height="35" class="d-inline-block align-text-top">
+    
+    </a> -->
+      </ul>
+        
+       
+    </div>
+     <span class="navbar-text">
+        <p class="nav-link"  th:if="${session.usuarioSesion != null}"  th:text=" 'bienvenido/a '+  ${session.usuarioSesion.nombre} "></p> 
+  
+      </span>
+    <div> <img  th:src="@{/imagen/perfil/__${session.usuarioSesion.id}__}" alt="Logo" width="50" height="45" class="d-inline-block align-text-top" style="margin-left: 10px"> </div>
+  </div>
+</nav> 
+        
+        <h1>NOTICIAS DEL DIA</h1>
+        <div class="container text-center row my-4" >
+            
+    <div  th:each="noticia : ${noticias}" name="tituloDeNoticia" class="card" style="width: 18rem;">
+    <div  class="card-body">
+    <h5 class="card-title" th:value="${noticia.id}" th:text="${noticia.titulo}"></h5>
+    
+    <p class="card-text"> si quiere ingresar a la noticia haga click en el siguiente link</p>
+    <a th:href= "@{/noticia/laNoticia/__${noticia.id}__}" class="card-link">ir a la noticia</a>
+   
+  </div>
+</div>
+           
+            
+        </div>   
+        
+
+        
+           
+        
+        
+    </body>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>
